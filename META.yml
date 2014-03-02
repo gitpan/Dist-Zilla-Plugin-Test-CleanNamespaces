@@ -7,8 +7,9 @@ build_requires:
   File::Spec::Functions: '0'
   File::pushd: '0'
   List::Util: '0'
+  Test::CleanNamespaces: '>= 0.04, != 0.06'
   Test::DZil: '0'
-  Test::More: '0'
+  Test::More: '0.94'
   if: '0'
   version: '0'
 configure_requires:
@@ -30,7 +31,7 @@ no_index:
 provides:
   Dist::Zilla::Plugin::Test::CleanNamespaces:
     file: lib/Dist/Zilla/Plugin/Test/CleanNamespaces.pm
-    version: '0.001'
+    version: '0.002'
 requires:
   Dist::Zilla::File::InMemory: '0'
   Dist::Zilla::Role::FileGatherer: '0'
@@ -45,10 +46,12 @@ requires:
   strict: '0'
   warnings: '0'
 resources:
+  IRC: irc://irc.perl.org/#distzilla
+  MailingList: http://dzil.org/#mailing-list
   bugtracker: https://rt.cpan.org/Public/Dist/Display.html?Name=Dist-Zilla-Plugin-Test-CleanNamespaces
   homepage: https://github.com/karenetheridge/Dist-Zilla-Plugin-Test-CleanNamespaces
   repository: https://github.com/karenetheridge/Dist-Zilla-Plugin-Test-CleanNamespaces.git
-version: '0.001'
+version: '0.002'
 x_Dist_Zilla:
   perl:
     version: '5.019009'
@@ -493,6 +496,10 @@ x_Dist_Zilla:
           phase: develop
           type: requires
       name: DevelopRequires
+      version: '5.013'
+    -
+      class: Dist::Zilla::Plugin::MetaResources
+      name: MetaResources
       version: '5.013'
     -
       class: Dist::Zilla::Plugin::FinderCode

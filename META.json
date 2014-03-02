@@ -38,6 +38,7 @@
             "Dist::Zilla::Plugin::GitHub::Update" : "0",
             "Dist::Zilla::Plugin::GithubMeta" : "0",
             "Dist::Zilla::Plugin::MakeMaker::Fallback" : "0",
+            "Dist::Zilla::Plugin::MetaResources" : "0",
             "Dist::Zilla::Plugin::ModuleBuildTiny" : "0.004",
             "Dist::Zilla::Plugin::Prereqs" : "0",
             "Dist::Zilla::Plugin::Test::CleanNamespaces" : "0",
@@ -48,7 +49,6 @@
             "Pod::Coverage::TrustPod" : "0",
             "Test::CPAN::Changes" : "0.19",
             "Test::CPAN::Meta" : "0",
-            "Test::CleanNamespaces" : "0.04",
             "Test::Kwalitee" : "1.12",
             "Test::More" : "0.94",
             "Test::NoTabs" : "0",
@@ -83,8 +83,9 @@
             "File::Spec::Functions" : "0",
             "File::pushd" : "0",
             "List::Util" : "0",
+            "Test::CleanNamespaces" : ">= 0.04, != 0.06",
             "Test::DZil" : "0",
-            "Test::More" : "0",
+            "Test::More" : "0.94",
             "if" : "0",
             "version" : "0"
          }
@@ -93,7 +94,7 @@
    "provides" : {
       "Dist::Zilla::Plugin::Test::CleanNamespaces" : {
          "file" : "lib/Dist/Zilla/Plugin/Test/CleanNamespaces.pm",
-         "version" : "0.001"
+         "version" : "0.002"
       }
    },
    "release_status" : "stable",
@@ -107,9 +108,11 @@
          "type" : "git",
          "url" : "https://github.com/karenetheridge/Dist-Zilla-Plugin-Test-CleanNamespaces.git",
          "web" : "https://github.com/karenetheridge/Dist-Zilla-Plugin-Test-CleanNamespaces"
-      }
+      },
+      "x_IRC" : "irc://irc.perl.org/#distzilla",
+      "x_MailingList" : "http://dzil.org/#mailing-list"
    },
-   "version" : "0.001",
+   "version" : "0.002",
    "x_Dist_Zilla" : {
       "perl" : {
          "version" : "5.019009"
@@ -682,6 +685,11 @@
                }
             },
             "name" : "DevelopRequires",
+            "version" : "5.013"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::MetaResources",
+            "name" : "MetaResources",
             "version" : "5.013"
          },
          {

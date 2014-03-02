@@ -97,12 +97,13 @@ my %WriteMakefileArgs = (
     "File::Spec::Functions" => 0,
     "File::pushd" => 0,
     "List::Util" => 0,
+    "Test::CleanNamespaces" => ">= 0.04, != 0.06",
     "Test::DZil" => 0,
-    "Test::More" => 0,
+    "Test::More" => "0.94",
     "if" => 0,
     "version" => 0
   },
-  "VERSION" => "0.001",
+  "VERSION" => "0.002",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -122,8 +123,9 @@ my %FallbackPrereqs = (
   "Moose" => 0,
   "MooseX::Types::Stringlike" => 0,
   "Path::Tiny" => 0,
+  "Test::CleanNamespaces" => ">= 0.04, != 0.06",
   "Test::DZil" => 0,
-  "Test::More" => 0,
+  "Test::More" => "0.94",
   "if" => 0,
   "namespace::autoclean" => 0,
   "strict" => 0,

@@ -4,8 +4,8 @@ package Dist::Zilla::Plugin::Test::CleanNamespaces;
 BEGIN {
   $Dist::Zilla::Plugin::Test::CleanNamespaces::AUTHORITY = 'cpan:ETHER';
 }
-# git description: a28af79
-$Dist::Zilla::Plugin::Test::CleanNamespaces::VERSION = '0.001';
+# git description: v0.001-3-g5976807
+$Dist::Zilla::Plugin::Test::CleanNamespaces::VERSION = '0.002';
 # ABSTRACT: Generate a test to check that all namespaces are clean
 # vim: set ts=8 sw=4 tw=78 et :
 
@@ -45,9 +45,9 @@ sub register_prereqs
     $self->zilla->register_prereqs(
         {
             type  => 'requires',
-            phase => 'develop',
+            phase => $self->filename =~ /^t/ ? 'test' : 'develop',
         },
-        'Test::CleanNamespaces' => '0.04',
+        'Test::CleanNamespaces' => '>= 0.04, != 0.06',
     );
 }
 
@@ -115,7 +115,7 @@ Dist::Zilla::Plugin::Test::CleanNamespaces - Generate a test to check that all n
 
 =head1 VERSION
 
-version 0.001
+version 0.002
 
 =head1 SYNOPSIS
 

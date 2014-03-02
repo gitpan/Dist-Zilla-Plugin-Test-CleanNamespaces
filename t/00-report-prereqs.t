@@ -59,6 +59,7 @@ my $static_prereqs = do { my $x = {
                                       'Dist::Zilla::Plugin::GitHub::Update' => '0',
                                       'Dist::Zilla::Plugin::GithubMeta' => '0',
                                       'Dist::Zilla::Plugin::MakeMaker::Fallback' => '0',
+                                      'Dist::Zilla::Plugin::MetaResources' => '0',
                                       'Dist::Zilla::Plugin::ModuleBuildTiny' => '0.004',
                                       'Dist::Zilla::Plugin::Prereqs' => '0',
                                       'Dist::Zilla::Plugin::Test::CleanNamespaces' => '0',
@@ -69,7 +70,6 @@ my $static_prereqs = do { my $x = {
                                       'Pod::Coverage::TrustPod' => '0',
                                       'Test::CPAN::Changes' => '0.19',
                                       'Test::CPAN::Meta' => '0',
-                                      'Test::CleanNamespaces' => '0.04',
                                       'Test::Kwalitee' => '1.12',
                                       'Test::More' => '0.94',
                                       'Test::NoTabs' => '0',
@@ -104,8 +104,9 @@ my $static_prereqs = do { my $x = {
                                    'File::Spec::Functions' => '0',
                                    'File::pushd' => '0',
                                    'List::Util' => '0',
+                                   'Test::CleanNamespaces' => '>= 0.04, != 0.06',
                                    'Test::DZil' => '0',
-                                   'Test::More' => '0',
+                                   'Test::More' => '0.94',
                                    'if' => '0',
                                    'version' => '0'
                                  }
