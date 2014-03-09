@@ -11,22 +11,23 @@ my $tzil = Builder->from_config(
     { dist_root => 't/does-not-exist' },
     {
         add_files => {
-            'source/dist.ini' => simple_ini(
+            path(qw(source dist.ini)) => simple_ini(
                 [ GatherDir => ],
-                [ 'Test::CleanNamespaces' => { skip => '::Dirty$' } ],
+                [ 'Test::CleanNamespaces' => { skip => [ '::Dirty$', '::Unclean$' ] } ],
             ),
             path(qw(source lib Foo.pm)) => "package Foo;\n1;\n",
             path(qw(source lib Foo Dirty.pm)) => "package Foo::Dirty;\nuse Scalar::Util 'refaddr';\n1;\n",
+            path(qw(source lib Foo Unclean.pm)) => "package Foo::Unclean;\nuse Scalar::Util 'weaken';\n1;\n",
         },
     },
 );
 $tzil->build;
 
-my $build_dir = $tzil->tempdir->subdir('build');
-my $file = path($build_dir, 'xt', 'release', 'clean-namespaces.t');
+my $build_dir = path($tzil->tempdir)->child('build');
+my $file = $build_dir->child(qw(xt release clean-namespaces.t));
 ok(-e $file, 'test created');
 
-my $content = $file->slurp;
+my $content = $file->slurp_utf8;
 unlike($content, qr/[^\S\n]\n/m, 'no trailing whitespace in generated test');
 
 subtest 'run the generated test: filters out the "skip" regexp from the modules checked' => sub

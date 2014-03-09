@@ -4,8 +4,8 @@ package Dist::Zilla::Plugin::Test::CleanNamespaces;
 BEGIN {
   $Dist::Zilla::Plugin::Test::CleanNamespaces::AUTHORITY = 'cpan:ETHER';
 }
-# git description: v0.001-3-g5976807
-$Dist::Zilla::Plugin::Test::CleanNamespaces::VERSION = '0.002';
+# git description: v0.002-3-gb295d17
+$Dist::Zilla::Plugin::Test::CleanNamespaces::VERSION = '0.003';
 # ABSTRACT: Generate a test to check that all namespaces are clean
 # vim: set ts=8 sw=4 tw=78 et :
 
@@ -67,12 +67,13 @@ use warnings;
 use Test::More 0.94;
 use Test::CleanNamespaces 0.04;
 
-subtest all_namespaces_clean => sub { {{
+subtest all_namespaces_clean => sub {{
     $skips
-    ? "namespaces_clean(\n    "
-        . 'grep { my $mod = $_; grep { $mod !~ $_ } ' . $skips . " } Test::CleanNamespaces->find_modules);\n"
-    : 'all_namespaces_clean() '
-}}};
+    ? "{\n    namespaces_clean(
+        " . 'grep { my $mod = $_; not grep { $mod =~ $_ } ' . $skips . " }
+            Test::CleanNamespaces->find_modules\n    );\n};"
+    : '{ all_namespaces_clean() };'
+}}
 
 done_testing;
 TEST
@@ -115,7 +116,7 @@ Dist::Zilla::Plugin::Test::CleanNamespaces - Generate a test to check that all n
 
 =head1 VERSION
 
-version 0.002
+version 0.003
 
 =head1 SYNOPSIS
 
