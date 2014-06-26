@@ -4,9 +4,10 @@ package Dist::Zilla::Plugin::Test::CleanNamespaces;
 BEGIN {
   $Dist::Zilla::Plugin::Test::CleanNamespaces::AUTHORITY = 'cpan:ETHER';
 }
-# git description: v0.002-3-gb295d17
-$Dist::Zilla::Plugin::Test::CleanNamespaces::VERSION = '0.003';
+# git description: v0.003-7-g7365f4e
+$Dist::Zilla::Plugin::Test::CleanNamespaces::VERSION = '0.004';
 # ABSTRACT: Generate a test to check that all namespaces are clean
+# KEYWORDS: plugin testing namespaces clean dirty imports exports subroutines methods
 # vim: set ts=8 sw=4 tw=78 et :
 
 use Moose;
@@ -47,7 +48,7 @@ sub register_prereqs
             type  => 'requires',
             phase => $self->filename =~ /^t/ ? 'test' : 'develop',
         },
-        'Test::CleanNamespaces' => '>= 0.04, != 0.06',
+        'Test::CleanNamespaces' => '0.13',
     );
 }
 
@@ -108,15 +109,13 @@ __END__
 
 =encoding UTF-8
 
-=for :stopwords Karen Etheridge FileFinder irc
-
 =head1 NAME
 
 Dist::Zilla::Plugin::Test::CleanNamespaces - Generate a test to check that all namespaces are clean
 
 =head1 VERSION
 
-version 0.003
+version 0.004
 
 =head1 SYNOPSIS
 
@@ -149,9 +148,11 @@ The name of the generated test. Defaults to F<xt/release/clean-namespaces.t>.
 =head2 skip
 
 A regular expression describing a module name that should not be checked. Can
-be repeated more than once.
+be used more than once.
 
 =head1 TO DO (or: POSSIBLE FEATURES COMING IN FUTURE RELEASES)
+
+=for stopwords FileFinder
 
 =over 4
 
@@ -164,6 +165,8 @@ source files to check (depends on changes planned in L<Test::CleanNamespaces>)
 =back
 
 =head1 SUPPORT
+
+=for stopwords irc
 
 Bugs may be submitted through L<the RT bug tracker|https://rt.cpan.org/Public/Dist/Display.html?Name=Dist-Zilla-Plugin-Test-CleanNamespaces>
 (or L<bug-Dist-Zilla-Plugin-Test-CleanNamespaces@rt.cpan.org|mailto:bug-Dist-Zilla-Plugin-Test-CleanNamespaces@rt.cpan.org>).
@@ -192,6 +195,14 @@ L<namespace::sweep>
 =item *
 
 L<Sub::Exporter::ForMethods>
+
+=item *
+
+L<Sub::Install>
+
+=item *
+
+L<MooseX::MarkAsMethods>
 
 =back
 
