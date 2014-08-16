@@ -8,9 +8,11 @@ use Test::NoTabs;
 
 my @files = (
     'lib/Dist/Zilla/Plugin/Test/CleanNamespaces.pm',
+    't/00-report-prereqs.dd',
     't/00-report-prereqs.t',
     't/01-basic.t',
     't/02-skip.t',
+    't/03-extratests.t',
     't/clean-namespaces.t',
     'xt/author/00-compile.t',
     'xt/author/pod-spell.t',

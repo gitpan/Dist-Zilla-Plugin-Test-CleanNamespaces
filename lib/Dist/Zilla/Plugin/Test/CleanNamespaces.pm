@@ -4,8 +4,8 @@ package Dist::Zilla::Plugin::Test::CleanNamespaces;
 BEGIN {
   $Dist::Zilla::Plugin::Test::CleanNamespaces::AUTHORITY = 'cpan:ETHER';
 }
-# git description: v0.003-7-g7365f4e
-$Dist::Zilla::Plugin::Test::CleanNamespaces::VERSION = '0.004';
+# git description: v0.004-9-gf94bf3d
+$Dist::Zilla::Plugin::Test::CleanNamespaces::VERSION = '0.005';
 # ABSTRACT: Generate a test to check that all namespaces are clean
 # KEYWORDS: plugin testing namespaces clean dirty imports exports subroutines methods
 # vim: set ts=8 sw=4 tw=78 et :
@@ -18,6 +18,7 @@ with (
     'Dist::Zilla::Role::PrereqSource',
 );
 use MooseX::Types::Stringlike 'Stringlike';
+use Moose::Util::TypeConstraints 'role_type';
 use Path::Tiny;
 use namespace::autoclean;
 
@@ -39,6 +40,21 @@ has filename => (
     default => sub { path('xt', 'release', 'clean-namespaces.t') },
 );
 
+sub _tcn_prereq { '0.15' }
+
+around dump_config => sub
+{
+    my ($orig, $self) = @_;
+    my $config = $self->$orig;
+
+    $config->{+__PACKAGE__} = {
+        skips => [ $self->skips ],
+        filename => $self->filename,
+    };
+
+    return $config;
+};
+
 sub register_prereqs
 {
     my $self = shift;
@@ -48,25 +64,30 @@ sub register_prereqs
             type  => 'requires',
             phase => $self->filename =~ /^t/ ? 'test' : 'develop',
         },
-        'Test::CleanNamespaces' => '0.13',
+        'Test::CleanNamespaces' => $self->_tcn_prereq,
     );
 }
+
+has _file => (
+    is => 'rw', isa => role_type('Dist::Zilla::Role::File'),
+);
 
 sub gather_files
 {
     my $self = shift;
 
     require Dist::Zilla::File::InMemory;
-    $self->add_file( Dist::Zilla::File::InMemory->new(
-        name => $self->filename,
-        content => <<'TEST',
+    $self->add_file( $self->_file(
+        Dist::Zilla::File::InMemory->new(
+            name => $self->filename,
+            content => <<'TEST',
 use strict;
 use warnings;
 
 # this test was generated with {{ ref($plugin) . ' ' . ($plugin->VERSION || '<self>') }}
 
 use Test::More 0.94;
-use Test::CleanNamespaces 0.04;
+use Test::CleanNamespaces {{ $tcn_prereq }};
 
 subtest all_namespaces_clean => sub {{
     $skips
@@ -78,14 +99,15 @@ subtest all_namespaces_clean => sub {{
 
 done_testing;
 TEST
-    ));
+        ))
+    );
 }
 
 sub munge_file
 {
     my ($self, $file) = @_;
 
-    return unless $file->name eq $self->filename;
+    return unless $file == $self->_file;
 
     $file->content(
         $self->fill_in_string(
@@ -94,6 +116,7 @@ sub munge_file
                 dist => \($self->zilla),
                 plugin => \$self,
                 skips => \( join(', ', map { 'qr/' . $_ . '/' } $self->skips) ),
+                tcn_prereq => \($self->_tcn_prereq),
             }
         )
     );
@@ -115,7 +138,7 @@ Dist::Zilla::Plugin::Test::CleanNamespaces - Generate a test to check that all n
 
 =head1 VERSION
 
-version 0.004
+version 0.005
 
 =head1 SYNOPSIS
 
@@ -195,6 +218,10 @@ L<namespace::sweep>
 =item *
 
 L<Sub::Exporter::ForMethods>
+
+=item *
+
+L<Sub::Name>
 
 =item *
 
