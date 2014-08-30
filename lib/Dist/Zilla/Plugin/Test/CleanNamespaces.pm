@@ -1,11 +1,8 @@
 use strict;
 use warnings;
 package Dist::Zilla::Plugin::Test::CleanNamespaces;
-BEGIN {
-  $Dist::Zilla::Plugin::Test::CleanNamespaces::AUTHORITY = 'cpan:ETHER';
-}
-# git description: v0.004-9-gf94bf3d
-$Dist::Zilla::Plugin::Test::CleanNamespaces::VERSION = '0.005';
+# git description: v0.005-2-g77ab320
+$Dist::Zilla::Plugin::Test::CleanNamespaces::VERSION = '0.006';
 # ABSTRACT: Generate a test to check that all namespaces are clean
 # KEYWORDS: plugin testing namespaces clean dirty imports exports subroutines methods
 # vim: set ts=8 sw=4 tw=78 et :
@@ -37,7 +34,7 @@ has filename => (
     is => 'ro', isa => Stringlike,
     coerce => 1,
     lazy => 1,
-    default => sub { path('xt', 'release', 'clean-namespaces.t') },
+    default => sub { path('xt', 'author', 'clean-namespaces.t') },
 );
 
 sub _tcn_prereq { '0.15' }
@@ -138,7 +135,7 @@ Dist::Zilla::Plugin::Test::CleanNamespaces - Generate a test to check that all n
 
 =head1 VERSION
 
-version 0.005
+version 0.006
 
 =head1 SYNOPSIS
 
@@ -151,7 +148,7 @@ In your F<dist.ini>:
 
 This is a L<Dist::Zilla> plugin that runs at the
 L<gather files|Dist::Zilla::Role::FileGatherer> stage, providing a test file
-(configurable, defaulting to F<xt/release/clean-namespaces.t>).
+(configurable, defaulting to F<xt/author/clean-namespaces.t>).
 
 This test will scan all modules in your distribution and check that their
 namespaces are "clean" -- that is, that there are no remaining imported
@@ -166,7 +163,7 @@ L<namespace::autoclean>.
 
 =head2 filename
 
-The name of the generated test. Defaults to F<xt/release/clean-namespaces.t>.
+The name of the generated test. Defaults to F<xt/author/clean-namespaces.t>.
 
 =head2 skip
 

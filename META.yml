@@ -38,7 +38,7 @@ no_index:
 provides:
   Dist::Zilla::Plugin::Test::CleanNamespaces:
     file: lib/Dist/Zilla/Plugin/Test/CleanNamespaces.pm
-    version: '0.005'
+    version: '0.006'
 requires:
   Dist::Zilla::File::InMemory: '0'
   Dist::Zilla::Role::FileGatherer: '0'
@@ -59,10 +59,10 @@ resources:
   bugtracker: https://rt.cpan.org/Public/Dist/Display.html?Name=Dist-Zilla-Plugin-Test-CleanNamespaces
   homepage: https://github.com/karenetheridge/Dist-Zilla-Plugin-Test-CleanNamespaces
   repository: https://github.com/karenetheridge/Dist-Zilla-Plugin-Test-CleanNamespaces.git
-version: '0.005'
+version: '0.006'
 x_Dist_Zilla:
   perl:
-    version: '5.021002'
+    version: '5.021003'
   plugins:
     -
       class: Dist::Zilla::Plugin::Bootstrap::lib
@@ -73,7 +73,7 @@ x_Dist_Zilla:
           try_built: ~
           try_built_method: mtime
       name: Bootstrap::lib
-      version: '1.000004'
+      version: '1.000005'
     -
       class: Dist::Zilla::Plugin::Test::CleanNamespaces
       config:
@@ -82,6 +82,14 @@ x_Dist_Zilla:
           skips: []
       name: Test::CleanNamespaces
       version: ~
+    -
+      class: Dist::Zilla::Plugin::Prereqs
+      config:
+        Dist::Zilla::Plugin::Prereqs:
+          phase: develop
+          type: requires
+      name: '@Author::ETHER/bundle_plugins'
+      version: '5.020'
     -
       class: Dist::Zilla::Plugin::Git::NextVersion
       config:
@@ -189,11 +197,12 @@ x_Dist_Zilla:
             - '@Author::ETHER/Examples'
           skips: []
       name: '@Author::ETHER/Test::Compile'
-      version: '2.045'
+      version: '2.046'
     -
       class: Dist::Zilla::Plugin::Test::NoTabs
       config:
         Dist::Zilla::Plugin::Test::NoTabs:
+          filename: xt/author/no-tabs.t
           finder:
             - ':InstallModules'
             - ':ExecFiles'
@@ -201,7 +210,7 @@ x_Dist_Zilla:
             - ':TestFiles'
             - '@Author::ETHER/ExtraTestFiles'
       name: '@Author::ETHER/Test::NoTabs'
-      version: '0.08'
+      version: '0.09'
     -
       class: Dist::Zilla::Plugin::EOLTests
       name: '@Author::ETHER/EOLTests'
@@ -240,8 +249,12 @@ x_Dist_Zilla:
       version: '1.001'
     -
       class: Dist::Zilla::Plugin::Test::Kwalitee
+      config:
+        Dist::Zilla::Plugin::Test::Kwalitee:
+          filename: xt/release/kwalitee.t
+          skiptest: []
       name: '@Author::ETHER/Test::Kwalitee'
-      version: '2.07'
+      version: '2.11'
     -
       class: Dist::Zilla::Plugin::MojibakeTests
       name: '@Author::ETHER/MojibakeTests'
@@ -343,7 +356,7 @@ x_Dist_Zilla:
               name: -Transformer
               version: '4.006'
       name: '@Author::ETHER/PodWeaver'
-      version: '4.005'
+      version: '4.006'
     -
       class: Dist::Zilla::Plugin::NextRelease
       name: '@Author::ETHER/NextRelease'
@@ -380,15 +393,27 @@ x_Dist_Zilla:
           inherit_version: '1'
           meta_noindex: '1'
       name: '@Author::ETHER/MetaProvides::Package'
-      version: '2.000003'
+      version: '2.001001'
     -
       class: Dist::Zilla::Plugin::MetaConfig
       name: '@Author::ETHER/MetaConfig'
       version: '5.020'
     -
       class: Dist::Zilla::Plugin::Keywords
+      config:
+        Dist::Zilla::Plugin::Keywords:
+          keywords:
+            - plugin
+            - testing
+            - namespaces
+            - clean
+            - dirty
+            - imports
+            - exports
+            - subroutines
+            - methods
       name: '@Author::ETHER/Keywords'
-      version: '0.005'
+      version: '0.006'
     -
       class: Dist::Zilla::Plugin::Git::Contributors
       config:
@@ -396,8 +421,9 @@ x_Dist_Zilla:
           include_authors: '0'
           include_releaser: '1'
           order_by: commits
+          paths: []
       name: '@Author::ETHER/Git::Contributors'
-      version: '0.006'
+      version: '0.007'
     -
       class: Dist::Zilla::Plugin::AutoPrereqs
       name: '@Author::ETHER/AutoPrereqs'
@@ -526,7 +552,7 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::CopyFilesFromRelease
       name: '@Author::ETHER/CopyFilesFromRelease'
-      version: '0.001'
+      version: '0.002'
     -
       class: Dist::Zilla::Plugin::Run::AfterRelease
       config:
@@ -562,7 +588,7 @@ x_Dist_Zilla:
         Dist::Zilla::Plugin::Git::Tag:
           branch: ~
           signed: 0
-          tag: v0.005
+          tag: v0.006
           tag_format: v%v%t
           tag_message: v%v%t
           time_zone: local
@@ -595,14 +621,6 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::ConfirmRelease
       name: '@Author::ETHER/ConfirmRelease'
-      version: '5.020'
-    -
-      class: Dist::Zilla::Plugin::Prereqs
-      config:
-        Dist::Zilla::Plugin::Prereqs:
-          phase: develop
-          type: requires
-      name: '@Author::ETHER/bundle_options'
       version: '5.020'
     -
       class: Dist::Zilla::Plugin::Prereqs

@@ -64,7 +64,7 @@ EOW
         "Karen Etheridge <ether\@cpan.org>"
       ],
       "dist_name" => "Dist-Zilla-Plugin-Test-CleanNamespaces",
-      "dist_version" => "0.005",
+      "dist_version" => "0.006",
       "license" => "perl",
       "module_name" => "Dist::Zilla::Plugin::Test::CleanNamespaces",
       "recommends" => {},
